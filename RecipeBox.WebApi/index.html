@@ -1,0 +1,30 @@
+﻿<!DOCTYPE HTML>
+<html ng-app="RecipeBoxClient" lang='en'>
+<head>
+    <meta charset="utf-8" />
+    <title>RecipeBox</title>
+    <link href="./favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="./Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="./Content/site.css" rel="stylesheet" />
+</head>
+<body>
+    
+    <div ng-include="'./app/views/navbar.html'"></div>
+
+    <div class="container">
+        <!--<div ng-view class="fade-animation"></div>-->
+        <div ng-view></div>
+    </div>
+
+    <script src="./Scripts/jquery-2.1.1.min.js"></script>
+    <script src="./Scripts/bootstrap.min.js"></script>
+    <script src="./Scripts/angular-file-upload-shim.min.js"></script>
+    <script src="./Scripts/angular.js"></script>
+    <script src="./Scripts/angular-file-upload.min.js"></script>
+    <script src="./Scripts/angular-local-storage.min.js"></script>
+    <script src="./Scripts/angular-route.js"></script>
+    <script src="./Scripts/angular-animate.js"></script>
+    <script src="./Scripts/recipebox.js"></script>
+</body>
+</html>

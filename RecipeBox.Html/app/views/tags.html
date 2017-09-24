@@ -1,0 +1,36 @@
+﻿<div class="row action-row">
+    <button class="btn btn-primary" ng-click="tagsController.addNewTag()" ng-disabled="tagsController.isBusy"><span class="glyphicon glyphicon-plus"></span> New Tag</button>
+    <button class="btn btn-default" ng-click="tagsController.getTags()" ng-disabled="tagsController.isBusy"><span class="glyphicon glyphicon-refresh"></span> Refresh All</button>
+    <img ng-show="tagsController.isBusy" ng-src="{{tagsController.coreService.getSiteImagePath('busy.gif')}}" />
+</div>
+<div class="row top-pad-md">
+    <h2>{{tagsController.title}}</h2>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="panel-group" id="accordion">
+            <div ng-repeat="tag in tagsController.tags" ng-class="'repeat-animation panel panel-' + (tag | EntityStateToBootstrapFilter)" ng-form="tagForm">
+                <div class="panel-heading">
+                    <a class="btn btn-link" ng-click="tagsController.toggleTagEditing(tag)" data-toggle="collapse" data-parent="#accordion" ng-disabled="tag.isBusy">
+                        <span ng-class="!tag.isEditing | CollapsedGlyphFilter"></span> {{tag.Description || tagsController.emptyDescriptionText}}
+                    </a>
+                    <img ng-show="tag.isBusy" ng-src="{{tagsController.coreService.getSiteImagePath('busy.gif')}}" />
+                    <a class="btn btn-link pull-right" ng-click="tagsController.applyRefresh(tag, tagForm)" ng-disabled="!tagsController.coreService.entityRefreshEnabled(tag)" data-toggle="tooltip" title="Refresh the tag.">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                    </a>
+                    <a class="btn btn-link pull-right" ng-click="tagsController.applySave(tag, tagForm)" ng-disabled="!tagsController.coreService.entitySaveEnabled(tag)" data-toggle="tooltip" title="Save changes to the tag.">
+                        <span class="glyphicon glyphicon-save"></span>
+                    </a>
+                    <a class="btn btn-link pull-right" ng-click="tagsController.applyDelete(tag)" ng-disabled="!tagsController.coreService.entityDeleteEnabled(tag)" data-toggle="tooltip" title="Mark the tag for delete.">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </div>
+                <div class="panel-collapse collapse" id="{{tag.keyName}}">
+                    <div ng-class="'panel-body form-group ' + (tagForm.$invalid | BootstrapErrorFilter)">
+                        <input type="text" required name="descriptionInput" ng-model="tag.Description" ng-change="tagsController.coreService.entityChange(tag, tagForm)" class="form-control" placeholder="{{tagsController.emptyDescriptionText}}" ng-readonly="tag.isBusy" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

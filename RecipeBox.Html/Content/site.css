@@ -1,0 +1,132 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 40px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+/* button bar */
+.action-row {
+    background-color: white;
+    height: 50px; 
+    padding-top: 5px;
+    position: fixed; 
+    width: 100%;
+    z-index: 1001;
+}
+.action-row-lg {
+    background-color: white;
+    height: 130px; 
+    padding-top: 5px;
+    position: fixed; 
+    width: 100%;
+    z-index: 1001;
+}
+
+.top-pad-sm {
+    padding-top: 10px;
+}
+
+.top-pad-md {
+    padding-top: 30px;
+}
+
+.top-pad-lg {
+    padding-top: 110px;
+}
+
+/* css to standardize the size of the text under an "image list" */
+.imagelist-textarea {
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+}
+
+/* css for file inputs to style as standard bootstrap btn
+    source: http://www.abeautifulsite.net/blog/2013/08/whipping-file-inputs-into-shape-with-bootstrap-3/ */
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 999px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+/* normalize windows cr/lf to display in html text, neat trick:
+    source: http://stackoverflow.com/questions/13964735/angularjs-newline-filter-with-no-other-html */
+.text-return-normalizer {
+    white-space: pre;
+    word-wrap: break-word;
+}
+
+/* fade effect for the main ng-view */
+.fade-animation.ng-enter, .fade-animation.ng-leave {
+    -webkit-transition: 0.5s linear all;
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+    position: fixed;
+}
+
+.fade-animation.ng-enter {
+    transition-delay: 0.5s;
+    opacity: 0;
+}
+
+.fade-animation.ng-enter.ng-enter-active {
+    opacity: 1;
+}
+
+.fade-animation.ng-leave {
+    opacity: 1;
+}
+
+.fade-animation.ng-leave.ng-leave-active {
+    opacity: 0;
+}
+
+/* repeat animation for collections */
+.repeat-animation.ng-enter, 
+.repeat-animation.ng-leave, 
+.repeat-animation.ng-move {
+  -webkit-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+  position: relative;
+}
+
+.repeat-animation.ng-enter {
+  opacity: 0;
+}
+
+.repeat-animation.ng-enter.ng-enter-active {
+  left: 0;
+  opacity: 1;
+}
+
+.repeat-animation.ng-leave {
+  left: 0;
+  opacity: 1;
+}
+.repeat-animation.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+
+.repeat-animation.ng-move {
+  opacity: 0.5;
+}
+
+.repeat-animation.ng-move.ng-move-active {
+  opacity: 1;
+}

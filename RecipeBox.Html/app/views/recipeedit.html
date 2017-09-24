@@ -1,0 +1,123 @@
+﻿<div ng-form="recipeForm">
+    <!--Button bar-->
+    <div class="row action-row">
+        <!--Save-->
+        <button ng-class="'btn btn-' + (recipeEditController.recipe.GraphEntity.isDelete | BootstrapDangerSaveFilter)" ng-click="recipeEditController.saveRecipe(recipeForm)" ng-disabled="!recipeEditController.coreService.entitySaveEnabled(recipeEditController.recipe.GraphEntity)"><span class="glyphicon glyphicon-save"></span> Save</button>
+        <!--Delete-->
+        <button class="btn btn-warning" ng-click="recipeEditController.deleteRecipe()" ng-show="!recipeEditController.recipe.GraphEntity.isNew" ng-disabled="!recipeEditController.coreService.entityDeleteEnabled(recipeEditController.recipe.GraphEntity)"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+        <!--Cancel-->
+        <button class="btn btn-default" ng-click="recipeEditController.cancel()" ng-disabled="!recipeEditController.canCancel()"><span class="glyphicon glyphicon-refresh"></span> Cancel</button>
+        <img ng-show="recipeEditController.isBusy" ng-src="{{reciepEditController.coreService.getSiteImagePath('busy.gif')}}" />
+    </div>
+    <div class="row top-pad-md">
+        <h2>{{recipeEditController.title}}</h2>
+    </div>
+    <!--Edit controls-->
+    <div ng-show="!recipeEditController.isBusy">
+        <!--Name and Description-->
+        <div class="row">
+            <div ng-class="'form-group col-lg-4 col-md-4 col-sm-4 ' + (recipeForm.nameInput.$invalid | BootstrapErrorFilter)">
+                <label class="control-label">Name</label>
+                <input class="form-control" has-focus="!recipeEditController.isBusy" type="text" required name="nameInput" ng-model="recipeEditController.recipe.Name" ng-change="recipeEditController.recipeChange(recipeForm)" placeholder="Name is required" ng-readonly="recipeEditController.isBusy" />
+            </div>
+            <div ng-class="'form-group col-lg-8 col-md-8 col-sm-8 ' + (recipeForm.descriptionInput.$invalid | BootstrapErrorFilter)">
+                <label class="control-label">Description</label>
+                <input class="form-control" type="text" name="descriptionInput" ng-model="recipeEditController.recipe.Description" ng-change="recipeEditController.recipeChange(recipeForm)" ng-readonly="recipeEditController.isBusy" />
+            </div>
+        </div>
+        <!--Ingredients label and add button-->
+        <div class="row">
+            <div class="col-lg-12">
+                <label class="pull-left">Ingredients</label>
+                <a class="btn btn-primary btn-xs pull-left" style="margin-left: 10px" ng-click="recipeEditController.newIngredient()">
+                    <span class="glyphicon glyphicon-plus" data-toggle="tooltip" title="Add a new ingredient."></span>
+                </a>
+            </div>
+        </div>
+        <!--Ingredients-->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                    <div class="panel panel-default repeat-animation" ng-repeat="ingredient in recipeEditController.recipe.Ingredients" ng-form="ingredientForm">
+                        <div ng-class="'panel-body bg-' + (ingredient | EntityStateToBootstrapFilter)">
+                            <div class="row">
+                                <a class="btn btn-xs btn-link pull-right" ng-click="recipeEditController.toggleIngredientDelete(ingredient)">
+                                    <span ng-class="ingredient.isDelete | DeleteOrCancelGlyphFilter" data-toggle="tooltip" title="{{recipeEditController.ingredientDeleteTooltip(ingredient)}}"></span>
+                                </a>
+                                <div ng-class="'col-lg-3 col-md-3 col-sm-3 col-xs-11 form-group ' + (ingredientForm.quantityInput.$invalid | BootstrapErrorFilter)" style="margin-bottom: 0px">
+                                    <input class="form-control" name="quantityInput" ng-model="ingredient.Quantity" quantity ng-change="recipeEditController.ingredientChange(ingredient, ingredientForm)" placeholder="{{recipeEditController.emptyIngredientQuantityText}}" type="text" />
+                                </div>
+                                <div ng-class="'col-lg-3 col-md-3 col-sm-3 col-xs-12 form-group ' + (ingredientForm.unitsInput.$invalid | BootstrapErrorFilter)" style="margin-bottom: 0px">
+                                    <input class="form-control" name="unitsInput" ng-model="ingredient.Units" required ng-change="recipeEditController.ingredientChange(ingredient, ingredientForm)" placeholder="{{recipeEditController.emptyIngredientUnitsText}}" type="text" />
+                                </div>
+                                <div ng-class="'col-lg-5 col-md-5 col-sm-5 col-xs-12 form-group ' + (ingredientForm.descriptionInput.$invalid | BootstrapErrorFilter)" style="margin-bottom: 0px">
+                                    <input class="form-control" name="descriptionInput" ng-model="ingredient.Description" required ng-change="recipeEditController.ingredientChange(ingredient, ingredientForm)" placeholder="{{recipeEditController.emptyIngredientDescriptionText}}" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Directions-->
+        <div class="row">
+            <div class="form-group col-lg-12">
+                <label class="control-label">Directions</label>
+                <textarea class="form-control" rows="8" ng-model="recipeEditController.recipe.Directions" ng-change="recipeEditController.recipeChange(recipeForm)" ng-readonly="recipeEditController.isBusy"></textarea>
+            </div>
+        </div>
+        <!--Tags-->
+        <div class="row">
+            <div class="form-group col-lg-12">
+                <label class="control-label">Tags</label>
+                <ul class="list-inline">
+                    <li ng-repeat="tag in recipeEditController.tags">
+                        <a ng-class="tag.isSelected | BootstrapSelectButtonItemFilter" ng-click="recipeEditController.toggleTagSelected(tag.Id, recipeForm)"><span class="glyphicon glyphicon-ok" ng-show="tag.isSelected"></span> {{tag.Description}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--Image-->
+        <div class="row">
+            <div class="form-group col-lg-6 col-md-6 col-sm-6">
+                <label class="control-label">Image</label>
+                <div class="input-group">
+	                <span class="input-group-btn">
+		                <span class="btn btn-default btn-file">
+			                Select Image <input type="file" ng-file-select="recipeEditController.imageFileChanged($files)" accept="image/*" title="Select an image for the recipe." />
+		                </span>
+	                </span>
+	                <input class="form-control" ng-model="recipeEditController.recipe.ImageFileName" type="text" readonly>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="recipeEditController.imageFileChanged(null)" type="button" ng-show="recipeEditController.recipe.ImageFileName" data-toggle="tooltip" title="Remove the image from the recipe."><span class="glyphicon glyphicon-remove"></span></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--Servings and Prep Time-->
+        <div class="row">
+            <div ng-class="'form-group col-lg-3 col-md-3 col-sm-3 ' + (recipeForm.servingsInput.$invalid | BootstrapErrorFilter)">
+                <label class="control-label">Servings</label>
+                <input class="form-control" type="number" name="servingsInput" min="0" ng-model="recipeEditController.recipe.Servings" ng-change="recipeEditController.recipeChange(recipeForm)" ng-readonly="recipeEditController.isBusy" />
+            </div>
+            <div ng-class="'form-group col-lg-3 col-md-3 col-sm-3 ' + (recipeForm.prepTimeInput.$invalid | BootstrapErrorFilter)">
+                <label class="control-label">Prep Time (minutes)</label>
+                <input class="form-control" type="number" name="prepTimeInput" min="0" ng-model="recipeEditController.recipe.PreparationMinutes" ng-change="recipeEditController.recipeChange(recipeForm)" ng-readonly="recipeEditController.isBusy" />
+            </div>
+        </div>
+        <!--Source-->
+        <div class="row">
+            <div class="form-group col-lg-12">
+                <label class="control-label">Source</label>
+                <input class="form-control" type="text" name="sourceInput" ng-model="recipeEditController.recipe.Source" ng-change="recipeEditController.recipeChange(recipeForm)" ng-readonly="recipeEditController.isBusy" />
+            </div>
+        </div>
+        <!--Notes-->
+        <div class="row">
+            <div class="form-group col-lg-12">
+                <label class="control-label">Notes</label>
+                <textarea class="form-control" rows="5" ng-model="recipeEditController.recipe.Notes" ng-change="recipeEditController.recipeChange(recipeForm)" ng-readonly="recipeEditController.isBusy"></textarea>
+            </div>
+        </div>
+    </div>
+</div>

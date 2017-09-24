@@ -1,0 +1,38 @@
+﻿<div class="row action-row-lg">
+    <!--Button bar-->
+    <div class="row">
+        <div class="col-xs-12">
+            <a ng-click="recipesController.getRecipes()" class="btn btn-default" ng-disabled="recipesController.isBusy"><span class="glyphicon glyphicon-search"></span> Search</a>
+            <a href="#/recipes/edit/0" class="btn btn-primary" ng-disabled="recipesController.isBusy"><span class="glyphicon glyphicon-plus"></span> New Recipe</a>
+            <img ng-show="recipesController.isBusy" ng-src="{{recipesController.coreService.getSiteImagePath('busy.gif')}}" />
+        </div>
+    </div>
+    <!--Search controls-->
+    <label class="top-pad-sm">Search Filters</label>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6" data-toggle="tooltip" title="Filter for recipes that have the selected tag.">
+            <select class="form-control" has-focus="!recipesController.isBusy" ng-model="recipesController.selectedTag" ng-options="tag.Description for tag in recipesController.tags" ng-readonly="recipesController.isBusy"></select>
+        </div>
+        <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-6" data-toggle="tooltip" title="Filter for recipes whose name's start with...">
+            <input class="form-control" ng-model="recipesController.searchFilter" type="text" ng-readonly="recipesController.isBusy" placeholder="Name starts with..." />
+        </div>
+    </div>
+</div>
+<div class="row top-pad-lg">
+    <h2>{{recipesController.recipesService.recipes | RecipesTitleFilter}}</h2>
+</div>
+<ul class="row list-inline">
+    <li ng-repeat="recipe in recipesController.recipesService.recipes" class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+        <div ng-class="'alert alert-' + (recipe.GraphEntity | EntityStateToBootstrapFilter)">
+            <a href="#/recipes/display/{{recipe.Id}}" class="thumbnail">
+                <img ng-src="{{recipesController.coreService.getRecipeImagePath(recipe.ImageFileName)}}" class="img-responsive" title="{{recipe.Name}}" />
+            </a>
+            <a href="#/recipes/edit/{{recipe.Id}}" class="btn btn-link pull-right" data-togle="tooltip" title="Edit {{recipe.Name}}">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
+            <p class="imagelist-textarea">
+                {{recipe.Name}}
+            </p>
+        </div>
+    </li>
+</ul>

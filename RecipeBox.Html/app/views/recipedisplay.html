@@ -1,0 +1,42 @@
+﻿<div ng-show="recipeDisplayController.isBusy">
+    <h3>Loading Recipe</h3>
+    <img ng-src="{{recipeDisplayController.coreService.getSiteImagePath('busy.gif')}}" />
+</div>
+<div ng-show="!recipeDisplayController.isBusy">
+    <div class="row">
+        <h2 class="pull-left">{{recipeDisplayController.recipe.Name}}</h2>
+        <a href="#/recipes/edit/{{recipeDisplayController.recipe.Id}}" class="btn btn-default pull-right"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+    </div>
+    <div class="row">
+        <div class="col-lg-7 col-md-7 col-sm-8 col-xs-12 pull-left">
+            <div ng-show="recipeDisplayController.recipe.Description">
+                <h4>{{recipeDisplayController.recipe.Description}}</h4>
+                <br />
+            </div>
+            <p ng-show="recipeDisplayController.recipe.Servings">{{recipeDisplayController.recipe.Servings}} {{ recipeDisplayController.recipe.Servings | ServingsPluralizationFilter }}</p>
+            <p ng-show="recipeDisplayController.recipe.PreparationMinutes">{{recipeDisplayController.recipe.PreparationMinutes}} minutes preparation time</p>
+            <p ng-show="recipeDisplayController.recipe.Tags">Tags - {{recipeDisplayController.recipe.Tags | TagsReadableListFilter}}</p>
+            <br/>
+            <h4 ng-show="recipeDisplayController.recipe.Ingredients">Ingredients</h4>
+            <ul>
+                <li ng-repeat="ingredient in recipeDisplayController.recipe.Ingredients">{{ingredient.InstanceDescription}}</li>
+            </ul>
+            <div ng-show="recipeDisplayController.recipe.Directions">
+                <br/>
+                <h4>Directions</h4>
+                <p class="text-return-normalizer">{{recipeDisplayController.recipe.Directions}}</p>
+            </div>
+            <div ng-show="recipeDisplayController.recipe.Source">
+                <br/>
+                <h4>Source</h4>
+                {{recipeDisplayController.recipe.Source}}
+            </div>
+            <div ng-show="recipeDisplayController.recipe.Notes">
+                <br />
+                <h4>Notes</h4>
+                <p class="text-return-normalizer">{{recipeDisplayController.recipe.Notes}}</p>
+            </div>
+        </div>
+        <img class="col-lg-5 col-md-5 col-sm-4 col-xs-12" ng-src="{{recipeDisplayController.coreService.getRecipeImagePath(recipeDisplayController.recipe.ImageFileName)}}" />
+    </div>
+</div>

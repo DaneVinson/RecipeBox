@@ -1,0 +1,28 @@
+﻿<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="NavController">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="./">RecipeBox</a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+            <ul class="nav navbar-nav">
+                <li ng-repeat="navArea in navController.navAreas" ng-class="{ active: navController.areaIsActive(navArea.name) }" ng-show="!navArea.requireAuth || navController.coreService.isAuthenticated()">
+                    <a href="#/{{navArea.name}}" data-toggle="tooltip" title="{{navArea.toolTip}}"><span class="{{navArea.iconClass}}"></span> {{navArea.name}}</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-class="{ active: navController.areaIsActive('account') }">
+                    <a href="#/account">{{navController.coreService.authText}}</a>
+                </li>
+                <li>
+                    <a href="" ng-click="navController.coreService.logOut()" ng-show="navController.coreService.isAuthenticated()" data-toggle="tooltip" title="Log out and forget credentials."><span class="glyphicon glyphicon-log-out"></span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

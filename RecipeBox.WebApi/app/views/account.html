@@ -1,0 +1,107 @@
+﻿<div>
+    <!--Login controls-->
+    <div ng-show="accountController.showLogIn()" ng-form="loginForm">
+        <!--Button bar with "Log In" button-->
+        <div class="row action-row">
+            <button class="btn btn-success" ng-click="accountController.logIn()" ng-disabled="accountController.isBusy || loginForm.$invalid || accountController.coreService.isAuthenticated()"><span class="glyphicon glyphicon-log-in"></span> Log In</button>
+            <img ng-show="accountController.isBusy" ng-src="{{accountController.coreService.getSiteImagePath('busy.gif')}}" />
+        </div>
+        <!--Title row-->
+        <div class="row top-pad-md">
+            <div class="col-sm-3 col-xs-7">
+                <h2>{{accountController.title}}</h2>
+            </div>
+            <div class="col-sm-2 col-xs-5 top-pad-sm" ng-show="accountController.accountService.authenticationAttempts > 0">
+                <h4><span class="label label-danger">Log in failed</span></h4>
+            </div>
+
+        </div>
+        <!--User Name-->
+        <div class="row">
+            <div ng-class="'form-group col-sm-5 ' + (loginForm.loginUserNameInput.$invalid | BootstrapErrorFilter)">
+                <label class="control-label">User Name</label>
+                <input class="form-control" has-focus="accountController.showLogIn()" type="text" required name="loginUserNameInput" ng-model="accountController.loginUserName" placeholder="User name is required" ng-readonly="accountController.isBusy" />
+            </div>
+        </div>
+        <!--Password-->
+        <div class="row">
+            <div ng-class="'form-group col-sm-5 ' + (loginForm.loginPasswordInput.$invalid | BootstrapErrorFilter)">
+                <label class="control-label">Password</label>
+                <input class="form-control" type="password" required ng-minlength="6" name="loginPasswordInput" ng-model="accountController.loginPassword" placeholder="Password is required" ng-readonly="accountController.isBusy" />
+            </div>
+        </div>
+        <!--Remember-->
+        <div class="row">
+            <div class="form-group col-sm-5">
+                <input type="checkbox" ng-model="accountController.remember" /> Remember me on this device
+            </div>
+        </div>
+        <br/>
+        <!--Register-->
+        <a href="" ng-disabled="accountController.isBusy" ng-click="accountController.register()">Register</a> for a new account
+    </div>
+
+    <!--Account maintenance/registration-->
+    <div ng-show="!accountController.showLogIn()" ng-form="accountForm">
+        <!--Button bar with maintenance buttons-->
+        <div class="row action-row">
+            <button ng-class="'btn btn-' + (accountController.account.isDelete | BootstrapDangerSaveFilter)" ng-click="accountController.saveAccount(accountForm)" ng-disabled="!accountController.coreService.entitySaveEnabled(accountController.account)"><span class="glyphicon glyphicon-save"></span> Save</button>
+            <button class="btn btn-warning" ng-click="accountController.removeAccount()" ng-show="!accountController.account.isNew" ng-disabled="!accountController.coreService.entityDeleteEnabled(accountController.account)"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+            <button class="btn btn-default" ng-click="accountController.cancel()">Cancel</button>
+            <img ng-show="accountController.isBusy" ng-src="{{accountController.coreService.getSiteImagePath('busy.gif')}}" />
+        </div>
+        <div class="row top-pad-md">
+            <h2>{{accountController.title}}</h2>
+        </div>
+        <!--Instructions-->
+        <div class="row" ng-show="accountController.isRegistering">
+            <p class="col-sm-8">Enter the required information and click Save. You'll receive a confirmation email at the address you provide. Follow the link provided in that email to activate you account.</p>
+        </div>
+        <!--User Name-->
+        <div class="row">
+            <div ng-class="'form-group col-sm-5 ' + (accountForm.accountUserNameInput.$invalid | BootstrapErrorFilter)">
+                <label class="control-label">User Name</label>
+                <input class="form-control" has-focus="!accountController.showLogIn()" type="text" required name="accountUserNameInput" ng-model="accountController.account.UserName" ng-change="accountController.accountChange(accountForm)" placeholder="User name is required" ng-readonly="accountController.isBusy" />
+            </div>
+        </div>
+        <!--Email address-->
+        <div class="row">
+            <div ng-class="'form-group col-sm-5 ' + (accountForm.accountEmailAddressInput.$invalid | BootstrapErrorFilter)">
+                <label class="control-label">Email Address</label>
+                <input class="form-control" type="text" email name="accountEmailAddressInput" ng-model="accountController.account.EmailAddress" ng-change="accountController.accountChange(accountForm)" placeholder="A valid email address is required" ng-readonly="accountController.isBusy" />
+            </div>
+        </div>
+        <!--Password-->
+        <div class="row">
+            <div ng-class="'form-group col-sm-5 ' + (accountForm.accountPasswordInput.$invalid | BootstrapErrorFilter)">
+                <label class="control-label">Password</label>
+                <input class="form-control" type="password" required ng-minlength="6" name="accountPasswordInput" ng-model="accountController.account.Password" ng-keyup="accountController.accountChange(accountForm)" placeholder="Password is required" ng-readonly="accountController.isBusy" />
+            </div>
+        </div>
+        <!--Password confirmation-->
+        <div class="row">
+            <div ng-class="'form-group col-sm-5 ' + (accountForm.accountPasswordConfirmInput.$invalid | BootstrapErrorFilter)">
+                <label class="control-label">Confirm Password</label>
+                <input class="form-control" type="password" match="accountController.account.Password" name="accountPasswordConfirmInput" ng-model="accountController.account.PasswordConfirm" ng-keyup="accountController.accountChange(accountForm)" placeholder="Password confirmation is required" ng-readonly="accountController.isBusy" />
+            </div>
+        </div>
+        <!--Remember-->
+        <div class="row" ng-show="!accountController.isRegistering">
+            <div class="form-group col-sm-5">
+                <input type="checkbox" ng-model="accountController.remember" /> Remember me on this device
+            </div>
+        </div>
+        <!--Error messages-->
+        <div class="row">
+            <div ng-show="!accountController.account.isValid" class="alert alert-danger col-sm-5" role="alert">
+                <ul>
+                    <li ng-show="accountForm.accountUserNameInput.$error.required">User name is required.</li>
+                    <li ng-show="accountForm.accountEmailAddressInput.$error.email">A valid email address is required.</li>
+                    <li ng-show="accountForm.accountPasswordInput.$error.required || accountForm.accountPasswordInput.$error.minlength">A password with at least six characters is required.</li>
+                    <li ng-show="accountForm.accountPasswordConfirmInput.$error.match">The password and its confirmation must match.</li>
+                    <li ng-show="accountController.serverErrorMessage">{{accountController.serverErrorMessage}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,184 @@
+﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BB95D46C-FDF6-4EFE-97A1-7F57C072A465}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RecipeBox.ConsoleApp</RootNamespace>
+    <AssemblyName>RecipeBox.ConsoleApp</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGrid.SmtpApi">
+      <HintPath>..\packages\SendGrid.SmtpApi.1.1.3\lib\net40\SendGrid.SmtpApi.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGridMail">
+      <HintPath>..\packages\Sendgrid.4.0.0\lib\SendGridMail.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\RecipeBox.DataContext\RecipeBoxContext.cs">
+      <Link>RecipeBoxContext.cs</Link>
+    </Compile>
+    <Compile Include="Migrations\201404151931044_Initial.cs" />
+    <Compile Include="Migrations\201404151931044_Initial.Designer.cs">
+      <DependentUpon>201404151931044_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404242001056_AddRecipeSourceProperty.cs" />
+    <Compile Include="Migrations\201404242001056_AddRecipeSourceProperty.Designer.cs">
+      <DependentUpon>201404242001056_AddRecipeSourceProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406010650197_ReplaceUserWithAccount.cs" />
+    <Compile Include="Migrations\201406010650197_ReplaceUserWithAccount.Designer.cs">
+      <DependentUpon>201406010650197_ReplaceUserWithAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406070555430_AddClientIdToAccount.cs" />
+    <Compile Include="Migrations\201406070555430_AddClientIdToAccount.Designer.cs">
+      <DependentUpon>201406070555430_AddClientIdToAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406080543255_AddPasswordToAccount.cs" />
+    <Compile Include="Migrations\201406080543255_AddPasswordToAccount.Designer.cs">
+      <DependentUpon>201406080543255_AddPasswordToAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406140434052_DropAccountIdFields.cs" />
+    <Compile Include="Migrations\201406140434052_DropAccountIdFields.Designer.cs">
+      <DependentUpon>201406140434052_DropAccountIdFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406140437533_UpdateAccountToImplementIUserOfString.cs" />
+    <Compile Include="Migrations\201406140437533_UpdateAccountToImplementIUserOfString.Designer.cs">
+      <DependentUpon>201406140437533_UpdateAccountToImplementIUserOfString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406160349216_RemovedAccountIdFromAll.cs" />
+    <Compile Include="Migrations\201406160349216_RemovedAccountIdFromAll.Designer.cs">
+      <DependentUpon>201406160349216_RemovedAccountIdFromAll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406160412426_AddAccountIdToRecipeAndTag.cs" />
+    <Compile Include="Migrations\201406160412426_AddAccountIdToRecipeAndTag.Designer.cs">
+      <DependentUpon>201406160412426_AddAccountIdToRecipeAndTag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407260412266_AddAccountStatus.cs" />
+    <Compile Include="Migrations\201407260412266_AddAccountStatus.Designer.cs">
+      <DependentUpon>201407260412266_AddAccountStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407270426013_AddAccountSalt.cs" />
+    <Compile Include="Migrations\201407270426013_AddAccountSalt.Designer.cs">
+      <DependentUpon>201407270426013_AddAccountSalt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ConfigurationWithSeed.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecipeBoxDatabaseInitializer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RecipeBox.Core\RecipeBox.Core.csproj">
+      <Project>{413ba507-38dc-4cef-b0d2-a0aefa7af2ca}</Project>
+      <Name>RecipeBox.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RecipeBox.Model\RecipeBox.Model.csproj">
+      <Project>{6095e591-2d6f-49b3-b2e9-eee77d5b301e}</Project>
+      <Name>RecipeBox.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RecipeBox.WebApi\RecipeBox.WebApi.csproj">
+      <Project>{3eb3f479-8cc2-48af-a076-20480fe67b03}</Project>
+      <Name>RecipeBox.WebApi</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201404151931044_Initial.resx">
+      <DependentUpon>201404151931044_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404242001056_AddRecipeSourceProperty.resx">
+      <DependentUpon>201404242001056_AddRecipeSourceProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406010650197_ReplaceUserWithAccount.resx">
+      <DependentUpon>201406010650197_ReplaceUserWithAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406070555430_AddClientIdToAccount.resx">
+      <DependentUpon>201406070555430_AddClientIdToAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406080543255_AddPasswordToAccount.resx">
+      <DependentUpon>201406080543255_AddPasswordToAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406140434052_DropAccountIdFields.resx">
+      <DependentUpon>201406140434052_DropAccountIdFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406140437533_UpdateAccountToImplementIUserOfString.resx">
+      <DependentUpon>201406140437533_UpdateAccountToImplementIUserOfString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406160349216_RemovedAccountIdFromAll.resx">
+      <DependentUpon>201406160349216_RemovedAccountIdFromAll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406160412426_AddAccountIdToRecipeAndTag.resx">
+      <DependentUpon>201406160412426_AddAccountIdToRecipeAndTag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407260412266_AddAccountStatus.resx">
+      <DependentUpon>201407260412266_AddAccountStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407270426013_AddAccountSalt.resx">
+      <DependentUpon>201407270426013_AddAccountSalt.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
